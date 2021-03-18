@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 int main()
@@ -31,7 +32,31 @@ int main()
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
-	/* Loop until the user closes the window */
+	// init GLEW
+	if (glewInit() == GLEW_OK) {
+		std::cout << "glewInit success" << std::endl;
+	}
+	else {
+		std::cout << "glewInit did not return GLEW_OK" << std::endl;
+	}
+
+	// print out openGL version
+	std::cout << "Running openGL version: " << glGetString(GL_VERSION) << std::endl;
+
+
+	//draw a triangle
+	float vertices[6] = {
+		-0.5f, -0.5f,
+		 0.0f,  0.5f,
+		 0.5f, -0.5f
+	};
+
+	unsigned int buffer;
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), vertices, GL_STATIC_DRAW);
+
+	// main game loop
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
@@ -55,4 +80,3 @@ int main()
 	/***********************************************/
 	return 0;
 }
-
