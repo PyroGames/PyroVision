@@ -1,10 +1,18 @@
-namespace PV {
-	__declspec(dllimport) void Print();
-}
+#include <PyroVision.h>
 
-int main() {
-	PV::Print();
+class Sandbox : public PV::Application {
+public:
+	Sandbox() {
 
+	}
 
-	return 0;
+	~Sandbox() {
+
+	}
+
+private:
+};
+
+PV::Application* PV::CreateApplication() {
+	return new Sandbox();
 }
